@@ -20,8 +20,8 @@ dotenv.config();
 
 const connect = async () => {    
 try {
-    //mongoose.connect(process.env.MONGO, {useNewUrlParser: true, useUnifiedTopology: true});
-    mongoose.connect("mongodb://localhost:27017", {useNewUrlParser: true, useUnifiedTopology: true});
+    mongoose.connect(process.env.MONGO, {useNewUrlParser: true, useUnifiedTopology: true});
+    //mongoose.connect("mongodb://localhost:27017", {useNewUrlParser: true, useUnifiedTopology: true});
     console.log("Connected to mongoDB.")
   } catch (error) {
     throw error; 
