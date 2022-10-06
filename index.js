@@ -20,17 +20,23 @@ dotenv.config();
 
 const connect = async () => {    
 try {
-    await mongoose.connect(process.env.MONGO, {useNewUrlParser: true, useUnifiedTopology: true});
+    //mongoose.connect(process.env.MONGO, {useNewUrlParser: true, useUnifiedTopology: true});
+    mongoose.connect("mongodb://localhost:27017", {useNewUrlParser: true, useUnifiedTopology: true});
     console.log("Connected to mongoDB.")
   } catch (error) {
-    throw error;
+    throw error; 
   }
-};
+}; 
 
 app.use(cors({origin:"*",}));
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(express.json());
+// app.use((req)=>{
+//   const token = req.cookies.access_token;
+//   console.log(token);
+//   console.log(req.body); 
+// })
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);

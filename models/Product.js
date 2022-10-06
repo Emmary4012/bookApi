@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const ProductSchema = mongoose.Schema({
     name: {
         type: String, 
-        required: [true, "name must be provided"]
+        // required: [true, "name must be provided"]
     },
     category: {
         type: String,
@@ -19,10 +19,10 @@ const ProductSchema = mongoose.Schema({
     source: {
         type: String
     },
-    sourceEmail: {
+    email: {
         type: String
     },
-    sourcePhone: {
+    phone: {
         type: String
     },
     img: {

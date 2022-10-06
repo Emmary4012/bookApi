@@ -21,17 +21,25 @@ export const createUser = async (req,res,next)=> {
 
 export const login = async (req,res,next)=> {
     try {
+        console.log("first")
+        const username = req.body.username; 
+        if(!username) return res.status(400).json("Username is required");
+
+        const passWord =  req.body.password; 
+        if(!passWord) return res.status(400).json("Password is required");
+
         const user = await User.findOne({username: req.body.username});
-        if(!user) return next(createError(404,"Sorry, user not found"));
+        if(!user) return res.status(400).json("User not found");
         
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
-        if(!isPasswordCorrect) return next(createError(400, "Wrong password"))
-        
-        const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT)
+        if(!isPasswordCorrect) return res.status(400).json("Wrong password")
+        // if(!isPasswordCorrect) return next(createError(400, "Wrong password"));
+         
+        const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT, {expiresIn:"7d"})
         const { password, isAdmin, ...otherDetails } = user._doc;
-        res.cookie("access_token", token, {httpOnly:true,}).status(200).json({details:{...otherDetails}, isAdmin})
+        res.cookie("access_token", token, {httpOnly:true,}).status(200).json({...otherDetails})
        
     } catch (error) {
-        next(createError(400, "Sorry, login failed"));
+        res.status(404).send("Sorry, an internal error occured");
     }
 }

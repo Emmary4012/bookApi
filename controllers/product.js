@@ -1,47 +1,55 @@
 import Product from "../models/Product.js";
 import { createError } from "../Utils/error.js";
 
-const handleError = (err) => {
-    const error_obj = {name: ""}
-    if(err.code === 11000){
-        error_obj.name = "name already exists";
-    };
+// const handleError = (err) => {
+//     const error_obj = {name: ""}
+//     if(err.code === 11000){
+//         error_obj.name = "name already exists";
+//     };
 
-    if(err.message === "name must be provided"){
-        error_obj.name = "name must be provided";
-    };
+//     if(err.message === "name must be provided"){
+//         error_obj.name = "name must be provided";
+//     };
 
-    return error_obj;
-}
+//     return error_obj;
+// }
 
-export const createProduct = async (req,res,next)=> {
+//export const createProduct = async (req,res,next)=> {
 
-    try{
-        const newProduct = await Product.create(req.body);
-    }catch(err){
-        const error = handleError(err);
+    // try{
+    //     const newProduct = await Product.create(req.body);
+    // }catch(err){
+    //     // const error = handleError(err);
 
-        res.status(501).json(error);
-    }
-    
-
-
-
-    // const newProduct = Product(req.body);
-    // console.log(newProduct);
-
-    // try {
-    //     const savedProduct = await newProduct.save();
-    //     console.log(savedProduct)
-    //     res.status(200).json(savedProduct);
-    // } catch (error) {
-    //     createError(403, "Sorry, product creation failed. Pleease try again"); 
+    //     // res.status(501).json(error);
+    //     console.log("Sorry, product couldn't be created");
     // }
+    
+    export const createProduct =   async (req,res)=>{
+        const newProduct = Product(req.body);
+        try {
+            const savedProduct = await newProduct.save();
+            res.status(200).json(savedProduct);
+
+    } catch (error) {
+        //createError(403, "Sorry, product creation failed. Pleease try again"); 
+        console.log("Sorry, product couldn't be created");
+    }
 }
 
 
 export const updateProduct = async (req,res)=>{
-
+console.log(req.params.id)
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {$set: req.body}, {new:true})
+        res.status(200).json(updatedProduct);
+    } catch (err) {
+        createError(403, "Sorry, product update was unsuccessful. Pleease try again"); 
+    }
+   
+}
+export const patchProduct = async (req,res)=>{
+console.log(req.params.id)
     try {
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {$set: req.body}, {new:true})
         res.status(200).json(updatedProduct);
