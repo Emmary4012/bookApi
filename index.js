@@ -20,15 +20,22 @@ dotenv.config();
 
 const connect = async () => {    
 try {
-    mongoose.connect(process.env.MONGO, {useNewUrlParser: true, useUnifiedTopology: true});
+    mongoose.connect(process.env.MONGO);
     //mongoose.connect("mongodb://localhost:27017", {useNewUrlParser: true, useUnifiedTopology: true});
     console.log("Connected to mongoDB.")
   } catch (error) {
-    throw error; 
+    throw error;  
   }
 }; 
 
-app.use(cors({origin:"*",}));
+// app.use(cors({origin:"*",}));
+app.use(function(req, res, next){
+  res.header("Access-Control-Allow-Origin",'*');
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  next();
+})
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(express.json());

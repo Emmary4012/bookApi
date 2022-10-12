@@ -17,16 +17,16 @@ const ProductSchema = mongoose.Schema({
         type: String,
     },
     source: {
-        type: String
+        type: String,
     },
     email: {
-        type: String
+        type: String,
     },
     phone: {
-        type: String
+        type: String,
     },
     img: {
-        type: String,
+        type: [String],
     },
     price: {
         type: Number, 

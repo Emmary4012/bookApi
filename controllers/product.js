@@ -28,8 +28,11 @@ import { createError } from "../Utils/error.js";
     export const createProduct =   async (req,res)=>{
         const newProduct = Product(req.body);
         try {
+            //const savedProduct = await Product.create(req.body);
             const savedProduct = await newProduct.save();
+            console.log("saved")
             res.status(200).json(savedProduct);
+           
 
     } catch (error) {
         //createError(403, "Sorry, product creation failed. Pleease try again"); 

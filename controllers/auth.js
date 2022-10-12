@@ -36,8 +36,10 @@ export const login = async (req,res,next)=> {
         // if(!isPasswordCorrect) return next(createError(400, "Wrong password"));
          
         const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT, {expiresIn:"7d"})
+        console.log(token)
         const { password, isAdmin, ...otherDetails } = user._doc;
-        res.cookie("access_token", token, {httpOnly:true,}).status(200).json({...otherDetails})
+        //res.cookie("access_token", token, {httpOnly:true,}).status(200).json({...otherDetails})
+        res.cookie("access_token", token).status(200).json({...otherDetails})
        
     } catch (error) {
         res.status(404).send("Sorry, an internal error occured");
