@@ -85,9 +85,9 @@ export const getProduct = async (req,res,next)=>{
 }
 
 export const getProducts = async (req,res,next)=>{
- 
+    console.log(req.query)
     try {
-        const products = await Product.find();
+        const products = await Product.find(req.query).limit(req.query.limit);
         res.status(200).json(products);
     } catch (err) {
         createError(403, "Sorry, couldn't fetch the products. Pleease try again"); 

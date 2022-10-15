@@ -9,7 +9,7 @@ apartmentsRoute.post("/", createApartment);
 // verifyAdmin,
 
 //UPDATE
-apartmentsRoute.put("/:id", verifyAdmin ,updateApartment);
+apartmentsRoute.put("/:id",updateApartment);
 
 //DELETE
 apartmentsRoute.delete("/:id", verifyAdmin,deleteApartment);

@@ -34,10 +34,13 @@ export const deleteApartment = async (req,res)=>{
 
 export const getApartment = async (req,res,next)=>{
     try {
-        const Apartment = await Apartment.findById(req.params.id);
-        res.status(200).json(Apartment);
+        console.log(req.params.id);
+        const apartment = await Apartment.findById(req.params.id);
+        res.status(200).json(apartment);
     } catch (err) {
-        next(createError(403, "Sorry, couldn't get the requested Apartment. Please try again")); 
+       // next(createError(403, "Sorry, couldn't get the requested Apartment. Please try again")); 
+       console.log("Sorry")
+       next();
     }   
 }
 
@@ -88,10 +91,11 @@ export const countByType = async (req,res,next)=>{
 }
 
 export const getApartmentRooms = async (req, res, next) => {
+    console.log(req.params)
     try {
-      const Apartment = await Apartment.findById(req.params.id);
+      const apartment = await Apartment.findById(req.params.id);
       const list = await Promise.all(
-        Apartment.rooms.map((room) => {
+        apartment.rooms.map((room) => {
           return Room.findById(room);
         })
       );

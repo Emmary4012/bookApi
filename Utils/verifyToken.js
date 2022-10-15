@@ -34,7 +34,7 @@ export const verifyAdmin = (req,res,next) => {
     const token = req.cookies.access_token;
     console.log("token" ,token)
     console.log(req.cookies)
-    if(!token) {
+    if(!token) { 
         //return next(createError(401,"You are not authenticated"))
         return res.status(401).json("You are not authenticated");
 

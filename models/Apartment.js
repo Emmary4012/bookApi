@@ -6,23 +6,24 @@ const ApartmentSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        required: true,
     },
-    campus: {
+    city: {
         type: String,
-        required: true,
+    },
+    district: {
+        type: String,
+    },
+    subcounty: {
+        type: String,
     },
     village: {
         type: String,
-        required: true,
     },
     address: {
         type: String,
-        required: true,
     },
     phone: {
-        type: Number,
-        required: true,
+        type: String,
     },
     email: {
         type: String,
@@ -39,11 +40,6 @@ const ApartmentSchema = mongoose.Schema({
     desc: {
         type: String
     },
-    rating: {
-        type: String,
-        min:0,
-        max:5
-    },
     rooms: {
          type: [String] 
     },
@@ -52,6 +48,11 @@ const ApartmentSchema = mongoose.Schema({
     },
     cheapestPrice: {
         type: Number
+    },
+        rating: {
+        type: Number,
+        min:0,
+        max:5
     },
     featured: {
         type: Boolean,
